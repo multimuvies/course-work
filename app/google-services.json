@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "736825921392",
+    "project_id": "course-work1-482aa",
+    "storage_bucket": "course-work1-482aa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:736825921392:android:77f8b968a71aa54e62c9b5",
+        "android_client_info": {
+          "package_name": "com.example.course_work1"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBXq44RKc7RAECprkBoK4ZVtVqQHExvpuc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
