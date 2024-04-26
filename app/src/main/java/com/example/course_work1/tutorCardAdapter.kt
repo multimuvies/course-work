@@ -27,8 +27,8 @@ class TutorCardAdapter(var context: Context): RecyclerView.Adapter<TutorCardAdap
         val binding = TutorCardItemBinding.bind(item)
         fun bind(card: TutorCard) = with(binding){
             nameTitle.text = card.name
-            surnameTitle.text = card.surname
-            universityTitle.text = card.uniersity
+            UniversityTitle.text = card.uniersity
+            CourseTitle.text = card.course
 
             val imageName = card.username
             val storageRef = FirebaseStorage.getInstance().reference.child("images/$imageName")

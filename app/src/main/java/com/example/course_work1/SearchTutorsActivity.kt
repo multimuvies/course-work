@@ -141,15 +141,17 @@ class SearchTutorsActivity : AppCompatActivity() {
             usersRef.addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     if (dataSnapshot.exists()) {
-                        // Цикл для обхода всех пользователей
+
                         for (userSnapshot in dataSnapshot.children) {
                             val userData = userSnapshot.getValue<Map<String, String>>()
                             val userId = userSnapshot.key
-                            val tutor_card = TutorCard(userId!!, userData?.get("name")!!, userData?.get("surname")!!, userData?.get("university")!!)
+                            val tutor_card = TutorCard(userId!!, userData?.get("name")!! + " " + userData?.get("surname")!!, userData?.get("university")!!)
                             if(filterClass(this@SearchTutorsActivity).compFilterToUser(user_university =  userData?.get("university")!!, username = userId) == true ) {
                                 adapter.addCard(tutor_card)
                             }
                         }
+
+
                     } else {
                         println("Пользователи не найдены.")
                     }

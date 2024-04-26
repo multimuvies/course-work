@@ -29,7 +29,7 @@ class EditProfileActivity : AppCompatActivity() {
     lateinit var binding: ActivityEditProfileBinding
     lateinit var imageUri: Uri
     val universities = arrayOf("ВУЗ не указан", "МГУ", "НИУ ВШЭ", "МФТИ")
-
+    val courses = arrayOf("Курс не указан", "1 курс", "2 курс", "3 курс", "4 курс", "5 курс", "6 курс", "Школьник")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityEditProfileBinding.inflate(layoutInflater)
@@ -64,13 +64,27 @@ class EditProfileActivity : AppCompatActivity() {
 
 
         // Настройка ArrayAdapter
-        val spinnerAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, universities)
-        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        // Присоединяем адаптер к Spinner
-        val spinner = binding.universitySpinner
-        spinner.adapter = spinnerAdapter
+        val spinner_uni_Adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, universities)
+        spinner_uni_Adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        val spinner_uni = binding.universitySpinner
+        spinner_uni.adapter = spinner_uni_Adapter
         // Установка слушателя на выбор элемента
-        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+        spinner_uni.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+                //Toast.makeText(this@EditProfileActivity, "Выбран университет: ${universities[position]}", Toast.LENGTH_SHORT).show()
+            }
+            override fun onNothingSelected(parent: AdapterView<*>) {
+
+            }
+        }
+
+
+        val spinner_course_Adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, courses)
+        spinner_course_Adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        val spinner_course = binding.courseSpinner
+        spinner_course.adapter = spinner_course_Adapter
+        // Установка слушателя на выбор элемента
+        spinner_course.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
                 //Toast.makeText(this@EditProfileActivity, "Выбран университет: ${universities[position]}", Toast.LENGTH_SHORT).show()
             }
@@ -79,6 +93,9 @@ class EditProfileActivity : AppCompatActivity() {
             }
         }
     }
+
+
+
     private fun selectImage() {
         val intent = Intent()
         intent.type = "image/*"
