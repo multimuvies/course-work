@@ -34,9 +34,11 @@
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -45,9 +47,9 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="5dp"
-            android:background="#CBDADC"
-            android:backgroundTint="#CBDADC"
+            android:layout_marginHorizontal="10dp"
+            android:background="@drawable/rounded_button"
+            android:backgroundTint="#E0F7FA"
             android:orientation="vertical"
             tools:ignore="MissingConstraints">
 
@@ -57,6 +59,8 @@
                 android:layout_height="135dp"
                 android:layout_marginHorizontal="5dp"
                 android:layout_marginVertical="5dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
                 tools:srcCompat="@tools:sample/avatars" />
 
         </LinearLayout>
@@ -116,10 +120,11 @@
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="20dp"
-        android:layout_marginEnd="5dp"
-        android:background="#CBDADC"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/rounded_button"
+        android:backgroundTint="#E0F7FA"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -138,11 +143,11 @@
             android:id="@+id/grid_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:columnCount="2"
-            android:rowCount="2"
             android:layout_gravity="center"
+            android:columnCount="2"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:rowCount="2">
 
             <CheckBox
                 android:id="@+id/checkbox_math"

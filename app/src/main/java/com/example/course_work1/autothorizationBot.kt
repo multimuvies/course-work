@@ -2,38 +2,30 @@ package com.example.course_work1
 
 import android.content.Context
 
-class autothorizationBot(private val context: Context) {
+class AutothorizationBot(private val context: Context) {
     fun waitUserResponce(username: String)
     {
-        var shared_table_name = "AuthorizationTable"
-        var table = context.getSharedPreferences(shared_table_name, Context.MODE_PRIVATE)
-        table.edit().putString("Username", username).apply()
+        LocalStorageManager(context).addString("AuthorizationTable", "Username", username)
     }
 
     fun getUserName() : String{
-        var shared_table_name = "AuthorizationTable"
-        var table = context.getSharedPreferences(shared_table_name, Context.MODE_PRIVATE)
-        return table?.getString("Username", "default")!!
+        return LocalStorageManager(context).getString("AuthorizationTable", "Username")
     }
 
     fun setStatus(status: Int){
-        var shared_table_name = "AuthorizationTable"
-        var table = context.getSharedPreferences(shared_table_name, Context.MODE_PRIVATE)
-        table.edit().putInt("Status", status).apply()
+        LocalStorageManager(context).addInt("AuthorizationTable", "Status", status)
     }
 
     fun getStatus() : Int{
-        var shared_table_name = "AuthorizationTable"
-        var table = context.getSharedPreferences(shared_table_name, Context.MODE_PRIVATE)
-        return table?.getInt("Status", 0)!!
+        return LocalStorageManager(context).getInt("AuthorizationTable", "Status")
     }
 
     fun checkCode(enterCode: Int){
-        if(enterCode == 5352) {
-            setStatus(1)
-        }
-        else {
-            setStatus(0)
+        if(enterCode == DatabaseManager(context).getValue_int("UsersPasswords", UserProfile(context).getUsername(), "shortCode"))
+        {
+            setStatus(1);
+        } else {
+            setStatus(0);
         }
     }
 }

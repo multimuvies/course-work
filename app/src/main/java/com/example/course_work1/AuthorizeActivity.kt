@@ -19,7 +19,7 @@ class AuthorizeActivity : AppCompatActivity() {
         binding = ActivityAuthorizeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        if(autothorizationBot(this).getStatus() == 1) {
+        if(AutothorizationBot(this).getStatus() == 1) {
             finish()
         }
         binding.verifyTgButton.setOnClickListener{
@@ -27,7 +27,7 @@ class AuthorizeActivity : AppCompatActivity() {
             {
                 Toast.makeText(this, "Укажите ваш никнейм", Toast.LENGTH_SHORT).show()
             } else {
-                autothorizationBot(this).waitUserResponce(binding.editUserName.text.toString())
+                AutothorizationBot(this).waitUserResponce(binding.editUserName.text.toString())
 
                 val telegram = Intent(Intent.ACTION_VIEW, Uri.parse("https://t.me/find_tutor_bot"))
                 telegram.setPackage("org.telegram.messenger")
@@ -37,7 +37,7 @@ class AuthorizeActivity : AppCompatActivity() {
                 intent = Intent(this, Authorize2Activity::class.java)
                 startActivity(intent)
 
-                if(autothorizationBot(this).getStatus() == 1) {
+                if(AutothorizationBot(this).getStatus() == 1) {
                     finish()
                 } else {
                     // Toast.makeText(this, "Ошибка верификации", Toast.LENGTH_SHORT).show()
@@ -53,7 +53,7 @@ class AuthorizeActivity : AppCompatActivity() {
         super.onResume()
         binding = ActivityAuthorizeBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        if(autothorizationBot(this).getStatus() == 1) {
+        if(AutothorizationBot(this).getStatus() == 1) {
             finish()
         }
         binding.verifyTgButton.setOnClickListener{
@@ -61,7 +61,7 @@ class AuthorizeActivity : AppCompatActivity() {
             {
                 Toast.makeText(this, "Укажите ваш никнейм", Toast.LENGTH_SHORT).show()
             } else {
-                autothorizationBot(this).waitUserResponce(binding.editUserName.text.toString())
+                AutothorizationBot(this).waitUserResponce(binding.editUserName.text.toString())
 
                 val telegram = Intent(Intent.ACTION_VIEW, Uri.parse("https://t.me/find_tutor_bot"))
                 telegram.setPackage("org.telegram.messenger")
@@ -72,7 +72,7 @@ class AuthorizeActivity : AppCompatActivity() {
                 intent = Intent(this, Authorize2Activity::class.java)
                 startActivity(intent)
 
-                if(autothorizationBot(this).getStatus() == 1) {
+                if(AutothorizationBot(this).getStatus() == 1) {
                     finish()
                 } else {
                    // Toast.makeText(this, "Ошибка верификации", Toast.LENGTH_SHORT).show()

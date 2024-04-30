@@ -30,6 +30,7 @@ class EditProfileActivity : AppCompatActivity() {
     lateinit var imageUri: Uri
     val universities = arrayOf("ВУЗ не указан", "МГУ", "НИУ ВШЭ", "МФТИ")
     val courses = arrayOf("Курс не указан", "1 курс", "2 курс", "3 курс", "4 курс", "5 курс", "6 курс", "Школьник")
+    var db = DatabaseManager(this)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityEditProfileBinding.inflate(layoutInflater)
@@ -62,16 +63,13 @@ class EditProfileActivity : AppCompatActivity() {
             true
         }
 
-
-        // Настройка ArrayAdapter
         val spinner_uni_Adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, universities)
         spinner_uni_Adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         val spinner_uni = binding.universitySpinner
         spinner_uni.adapter = spinner_uni_Adapter
-        // Установка слушателя на выбор элемента
+
         spinner_uni.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-                //Toast.makeText(this@EditProfileActivity, "Выбран университет: ${universities[position]}", Toast.LENGTH_SHORT).show()
             }
             override fun onNothingSelected(parent: AdapterView<*>) {
 
@@ -86,7 +84,6 @@ class EditProfileActivity : AppCompatActivity() {
         // Установка слушателя на выбор элемента
         spinner_course.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-                //Toast.makeText(this@EditProfileActivity, "Выбран университет: ${universities[position]}", Toast.LENGTH_SHORT).show()
             }
             override fun onNothingSelected(parent: AdapterView<*>) {
 
@@ -121,6 +118,7 @@ class EditProfileActivity : AppCompatActivity() {
                     binding.editSurNameButton.setText(userData?.get("surname"))
                     binding.universitySpinner.setSelection(userData?.get("university_id")!!.toInt())
                     binding.editBio.setText(userData?.get("bio"))
+                    binding.courseSpinner.setSelection(userData?.get("course_id")!!.toInt())
                 } else {
                     //println("Пользователь не найден.")
                 }
@@ -167,9 +165,6 @@ class EditProfileActivity : AppCompatActivity() {
         progressDialog.setCancelable(false)
         progressDialog.show()
 
-
-        //val formatter = SimpleDateFormat("yyyy_MM_dd_HH_mm_ss", Locale.getDefault())
-        //val now = Date()
         val fileName = UserProfile(this).getUsername()
 
         val storageReference = FirebaseStorage.getInstance().getReference("images/$fileName")
@@ -183,7 +178,9 @@ class EditProfileActivity : AppCompatActivity() {
             "university_id" to binding.universitySpinner.selectedItemId.toString(),
             "university" to binding.universitySpinner.selectedItem.toString(),
             "bio" to binding.editBio.text.toString(),
-            )
+            "course_id" to binding.courseSpinner.selectedItemId.toString(),
+            "course" to binding.courseSpinner.selectedItem.toString()
+        )
         root.child("Users").child(UserProfile(this).getUsername()).setValue(userMap)
 
         var abilityMap = mapOf(
@@ -208,11 +205,4 @@ class EditProfileActivity : AppCompatActivity() {
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if(requestCode == 100 && resultCode == RESULT_OK){
-            imageUri = data?.data!!
-            binding.imageView.setImageURI(imageUri)
-        }
-    }
 }

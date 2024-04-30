@@ -20,10 +20,10 @@ class Authorize2Activity : AppCompatActivity() {
                 Toast.makeText(this, "Введите код", Toast.LENGTH_SHORT).show()
             } else {
 
-                autothorizationBot(this).checkCode(binding.editTgBotCode.text.toString().toInt())
+                AutothorizationBot(this).checkCode(binding.editTgBotCode.text.toString().toInt())
 
-                if(autothorizationBot(this).getStatus() == 1) {
-                    UserProfile(this).Authorize(autothorizationBot(this).getUserName())
+                if(AutothorizationBot(this).getStatus() == 1) {
+                    UserProfile(this).Authorize(AutothorizationBot(this).getUserName())
                     finish()
                 } else {
                     Toast.makeText(this, "Неверный код", Toast.LENGTH_SHORT).show()

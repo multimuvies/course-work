@@ -4,21 +4,15 @@ import android.content.Context
 
 class UserProfile (private val context : Context){
     fun isAuthorized() : Boolean{
-        var shared_table_name = "UserProfile"
-        var table = context.getSharedPreferences(shared_table_name, Context.MODE_PRIVATE)
-        return table?.getBoolean("isAuthorized", false)!!
+        return  LocalStorageManager(context).getBoolean("UserProfile","isAuthorized")
     }
 
     fun Authorize(username: String) {
-        var shared_table_name = "UserProfile"
-        var table = context.getSharedPreferences(shared_table_name, Context.MODE_PRIVATE)
-        table.edit().putString("Username", username).apply()
-        table.edit().putBoolean("isAuthorized", true).apply()
+        LocalStorageManager(context).addString("UserProfile","Username", username)
+        LocalStorageManager(context).addBoolean("UserProfile","isAuthorized", true)
     }
 
     fun getUsername() : String{
-        var shared_table_name = "UserProfile"
-        var table = context.getSharedPreferences(shared_table_name, Context.MODE_PRIVATE)
-        return table?.getString("Username", "default")!!
+        return LocalStorageManager(context).getString("UserProfile", "Username")
     }
 }

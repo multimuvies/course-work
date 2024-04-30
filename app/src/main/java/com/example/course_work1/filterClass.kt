@@ -8,29 +8,25 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.getValue
+import javax.security.auth.Subject
 
 class filterClass (private val context : Context){
-    fun setFilter(university: String){
-        var shared_table_name = "SearchFilterTable"
-        var table = context.getSharedPreferences(shared_table_name, Context.MODE_PRIVATE)
-        table.edit().putString("UniversityFilter", university).apply()
+    fun setFilter(university: String, course: String, subject: String){
+        LocalStorageManager(context).addString("SearchFilterTable", "CourseFilter", course)
+        LocalStorageManager(context).addString("SearchFilterTable", "UniversityFilter", university)
+        LocalStorageManager(context).addString("SearchFilterTable", "SubjectFilter", subject)
     }
 
     fun clearFilter(){
-        var shared_table_name = "SearchFilterTable"
-        var table = context.getSharedPreferences(shared_table_name, Context.MODE_PRIVATE)
-        table.edit().clear().commit()
+       LocalStorageManager(context).clear("SearchFilterTable")
     }
 
-    fun compFilterToUser(user_university: String, username: String) : Boolean{
+    fun compFilterToUser(user_university: String, username: String, user_course: String, user_subject: String = "Любой предмет") : Boolean{
         var shared_table_name = "SearchFilterTable"
         var table = context.getSharedPreferences(shared_table_name, Context.MODE_PRIVATE)
-        // Получение ссылки на базу данных Firebase
 
-
-
-
-        if((table?.getString("UniversityFilter", "Любой ВУЗ")!! == user_university || table?.getString("UniversityFilter", "Любой ВУЗ")!! == "Любой ВУЗ")){
+        if((table?.getString("CourseFilter", "Любой курс")!! == user_course || table?.getString("CourseFilter", "Любой курс")!! == "Любой курс")
+            && (table?.getString("UniversityFilter", "Любой ВУЗ")!! == user_university || table?.getString("UniversityFilter", "Любой ВУЗ")!! == "Любой ВУЗ")){
             return true;
         } else {
             return false;
